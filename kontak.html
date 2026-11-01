@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Gabung Komunitas - Rare Flora Hub</title>
+</head>
+<body>
+
+    <!-- Header & Navigasi -->
+    <header>
+        <h1>Rare Flora Hub 🌿</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Beranda</a></li>
+                <li><a href="koleksi.html">Koleksi Tanaman</a></li>
+                <li><a href="kontak.html">Gabung Komunitas</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <hr>
+
+    <!-- Konten Utama -->
+    <main>
+        <section>
+            <h2>Formulir Pendaftaran Anggota Baru</h2>
+            <p>Mari bergabung bersama komunitas pelestari flora langka. Silakan isi data diri Anda di bawah ini:</p>
+
+            <!-- Form dengan JavaScript untuk menangkap data -->
+            <form id="formPendaftaran">
+                <div>
+                    <label for="namaLengkap">Nama Lengkap:</label><br>
+                    <input type="text" id="namaLengkap" name="nama" required placeholder="Masukkan nama lengkap">
+                </div>
+                <br>
+
+                <div>
+                    <label for="emailAnggota">Alamat Email:</label><br>
+                    <input type="email" id="emailAnggota" name="email" required placeholder="contoh@domain.com">
+                </div>
+                <br>
+
+                <div>
+                    <label>Pengalaman Merawat Tanaman:</label><br>
+                    <input type="radio" id="pemula" name="pengalaman" value="Pemula" required>
+                    <label for="pemula">Pemula (&lt; 1 Tahun)</label><br>
+                    
+                    <input type="radio" id="menengah" name="pengalaman" value="Menengah">
+                    <label for="menengah">Menengah (1 - 3 Tahun)</label><br>
+                    
+                    <input type="radio" id="ahli" name="pengalaman" value="Ahli">
+                    <label for="ahli">Kolektor / Ahli (&gt; 3 Tahun)</label>
+                </div>
+                <br>
+
+                <div>
+                    <button type="submit">Kirim Pendaftaran</button>
+                </div>
+            </form>
+        </section>
+
+        <hr>
+
+        <!-- Bagian untuk menampilkan data yang sudah mendaftar -->
+        <section>
+            <h2>Daftar Anggota yang Baru Mendaftar</h2>
+            <table border="1" cellpadding="8" cellspacing="0" style="margin-top: 10px; width: 100%;">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Nama Lengkap</th>
+                        <th>Email</th>
+                        <th>Pengalaman</th>
+                    </tr>
+                </thead>
+                <tbody id="tabelPendaftar">
+                    <!-- Data akan masuk ke sini secara otomatis -->
+                    <tr>
+                        <td colspan="4" style="text-align: center;">Belum ada data pendaftar.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Rare Flora Hub. Dibuat untuk Praktikum Desain Web.</p>
+    </footer>
+
+    <!-- Script JavaScript untuk memproses data form ke tabel -->
+    <script>
+        const form = document.getElementById('formPendaftaran');
+        const tabelPendaftar = document.getElementById('tabelPendaftar');
+        let dataPendaftar = [];
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault(); // Mencegah halaman reload / error 405
+
+            // Ambil nilai dari input
+            const nama = document.getElementById('namaLengkap').value;
+            const email = document.getElementById('emailAnggota').value;
+            const pengalamanSelected = document.querySelector('input[name="pengalaman"]:checked');
+            const pengalaman = pengalamanSelected ? pengalamanSelected.value : '';
+
+            // Masukkan ke array data
+            dataPendaftar.push({ nama, email, pengalaman });
+
+            // Kosongkan tabel atau hapus pesan "Belum ada data"
+            tabelPendaftar.innerHTML = '';
+
+            // Render ulang isi tabel
+            dataPendaftar.forEach((item, index) => {
+                const row = `<tr>
+                    <td>${index + 1}</td>
+                    <td>${item.nama}</td>
+                    <td>${item.email}</td>
+                    <td>${item.pengalaman}</td>
+                </tr>`;
+                tabelPendaftar.innerHTML += row;
+            });
+
+            // Reset form setelah dikirim
+            form.reset();
+            alert('Pendaftaran berhasil ditambahkan ke tabel!');
+        });
+    </script>
+
+</body>
+</html>
